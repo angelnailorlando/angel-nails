@@ -1,115 +1,85 @@
-"use client";
-import { useState } from "react";
+"use client"
+import { useState } from "react"
+export default function Page(){
+const [zoom,setZoom]=useState<string|null>(null)
+const [thanks,setThanks]=useState(false)
+const [name,setName]=useState("")
+const reviews=[
+{n:"Jessica M.",t:"Best nails in Orlando! Angel is so talented!"},
+{n:"Maria L.",t:"My nails lasted 4 weeks, amazing quality!"},
+{n:"Ashley K.",t:"Luxury experience, I feel like a queen!"},
+{n:"Tiana R.",t:"Angel understood exactly what I wanted!"},
+]
+const bookWhatsApp = () => {
+  if(!name){ alert("Enter your name ✨"); return }
+  setThanks(true)
+  setTimeout(()=>{
+    const msg = `Hello Angel Nails! 💅\n\nMy name is *${name}*\nI want to book a luxury moment in Orlando!\n\nCan I book please?`
+    window.open(`https://wa.me/14073937261?text=${encodeURIComponent(msg)}`, "_blank")
+  }, 800)
+}
+return(
+<main className="min-h-screen bg-[#fff4ee]">
+<nav className="flex justify-between items-center px-6 md:px-20 py-4 bg-white border-b sticky top-0 z-20">
+<div className="flex items-center gap-2">
+<img src="/images/logo1.jpeg" className="h-10 w-10 rounded-full object-cover" alt="" />
+<h1 className="text-2xl md:text-4xl font-black tracking-widest">ANGEL <span className="text-pink-600">NAILS</span></h1>
+</div>
+<div className="flex gap-2">
+<a href="https://www.instagram.com/nailssby_andjie" target="_blank" className="border px-4 py-2 rounded-full text-xs">IG</a>
+<a href="https://www.tiktok.com/@angelnails20" target="_blank" className="border px-4 py-2 rounded-full text-xs">TT</a>
+</div>
+</nav>
 
-export default function Page() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+<section className="px-6 md:px-20 py-12 grid md:grid-cols-2 gap-8 items-center">
+<div>
+<p className="text-xs font-bold text-pink-600 tracking-widest">ORLANDO, FLORIDA • LUXURY STUDIO</p>
+<h2 className="text-5xl font-black mt-4 leading-none">Nails That<br/><span className="text-pink-600 italic font-normal">Speak Luxury</span></h2>
+<a href="#book" className="inline-block mt-6 bg-pink-600 text-white px-8 py-3 rounded-full text-xs font-bold">BOOK APPOINTMENT</a>
+</div>
+<div className="bg-gradient-to-br from-pink-200 to-amber-100 p-4 rounded-3xl max-w-sm">
+<div className="bg-white p-3 rounded-2xl grid grid-cols-2 gap-3 shadow-xl">
+<img onClick={()=>setZoom("/images/nail1.jpg")} src="/images/nail1.jpg" className="rounded-xl h-28 object-cover cursor-pointer" alt="" />
+<img onClick={()=>setZoom("/images/nail2.jpg")} src="/images/nail2.jpg" className="rounded-xl h-28 object-cover cursor-pointer" alt="" />
+<img onClick={()=>setZoom("/images/nail3.jpg")} src="/images/nail3.jpg" className="rounded-xl h-28 object-cover cursor-pointer" alt="" />
+<img onClick={()=>setZoom("/images/nail4.jpg")} src="/images/nail4.jpg" className="rounded-xl h-28 object-cover cursor-pointer" alt="" />
+</div>
+</div>
+</section>
 
-  const handleBooking = () => {
-    if (!name &&!phone) {
-      const msg = "Hello Angel Nails! I want to book an appointment!";
-      window.open(`https://wa.me/14073937261?text=${encodeURIComponent(msg)}`, "_blank");
-      return;
-    }
-    const msg = `Hello Angel Nails! 💅\n\nName: ${name || "Client"}\nPhone: ${phone || "N/A"}\n\nI want to book a luxury moment!`;
-    window.open(`https://wa.me/14073937261?text=${encodeURIComponent(msg)}`, "_blank");
-  };
+<section className="px-6 md:px-20 pb-12">
+<h3 className="text-3xl font-bold text-center">Galery</h3>
+<div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-4xl mx-auto mt-6">
+{[1,2,3,4,5,6,7,8,9].map(i=><img key={i} onClick={()=>setZoom(`/images/nail${i}.jpg`)} src={`/images/nail${i}.jpg`} className="h-40 w-full object-cover rounded-2xl cursor-pointer" alt="" />)}
+</div>
+</section>
 
-  const galleryImages = [
-    "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400",
-    "https://images.unsplash.com/photo-1634449571010-02389ed0f357?w=400",
-    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400",
-    "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400",
-    "https://images.unsplash.com/photo-1634449571010-02389ed0f357?w=400",
-    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400",
-    "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400",
-    "https://images.unsplash.com/photo-1634449571010-02389ed0f357?w=400",
-    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400",
-  ];
+<section className="bg-white border-y py-10 overflow-hidden">
+<h3 className="text-2xl font-bold text-center mb-6">What My Clients Say</h3>
+<div className="flex gap-4" style={{animation:"marquee 20s linear infinite"}}>
+{[...reviews,...reviews].map((r,i)=><div key={i} className="min-w-[260px] bg-[#fff7f3] border rounded-2xl p-4"><p className="text-pink-500 text-xs">★★★★★</p><p className="mt-2 text-sm italic">"{r.t}"</p><p className="mt-2 font-bold text-xs">- {r.n}</p></div>)}
+</div>
+</section>
 
-  return (
-    <main className="min-h-screen bg-[#fef9f5] text-black">
-      {/* HEADER */}
-      <header className="flex justify-between items-center px-6 md:px-12 py-4 bg-white border-b sticky top-0 z-50">
-        <h1 className="font-black text-xl tracking-widest">ANGEL <span className="text-pink-600">NAILS</span></h1>
-        <a href="#book" className="bg-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold">BOOK APPOINTMENT</a>
-      </header>
+<section id="book" className="py-12 px-6 bg-black text-white">
+<div className="max-w-md mx-auto text-center">
+<h3 className="text-3xl font-black">Book Your Luxury Moment</h3>
+<p className="text-sm text-zinc-400 mt-2">ORLANDO, FLORIDA - (407) 393-7261</p>
+<div className="bg-white rounded-3xl p-5 mt-6">
+<input value={name} onChange={e=>setName(e.target.value)} placeholder="Your Name" className="w-full border rounded-full px-5 py-3 text-sm text-black" />
+<input type="date" className="w-full border rounded-full px-5 py-3 mt-3 text-sm text-black" />
+<button onClick={bookWhatsApp} className="w-full bg-black text-white rounded-full py-3 mt-4 text-sm font-bold">CONFIRM BOOKING</button>
+<p className="text-[10px] text-zinc-400 mt-2">Will open WhatsApp to (407) 393-7261</p>
+</div>
+</div>
+</section>
 
-      {/* HERO - Nails That Speak Luxury */}
-      <section className="px-6 md:px-12 py-12 md:py-20 grid md:grid-cols-2 gap-10 items-center max-w-7xl mx-auto">
-        <div>
-          <p className="text-pink-600 text-sm font-bold tracking-widest">ORLANDO, FLORIDA</p>
-          <h2 className="text-5xl md:text-7xl font-black leading-[0.9] mt-3">Nails That <br/><span className="text-pink-600 italic font-serif">Speak Luxury</span></h2>
-          <p className="mt-6 text-zinc-600 max-w-md">Experience luxury nail artistry in the heart of Orlando. Custom designs, premium products, flawless finish.</p>
-        </div>
-        <div className="relative">
-          <div className="bg-white p-2 rounded-3xl shadow-xl rotate-2">
-            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600" className="rounded-2xl w-full h-[400px] object-cover" alt="nails" />
-          </div>
-        </div>
-      </section>
+<footer className="bg-zinc-900 text-white text-center py-4 text-xs">ANGEL NAILS - ORLANDO FLORIDA</footer>
 
-      {/* GALLERY */}
-      <section className="px-6 md:px-12 py-10 max-w-7xl mx-auto">
-        <h3 className="text-3xl font-bold text-center mb-8">Galery</h3>
-        <div className="grid grid-cols-3 gap-3 md:gap-4">
-          {galleryImages.map((img, i) => (
-            <div key={i} className="aspect-square bg-zinc-100 rounded-2xl overflow-hidden hover:scale-[1.02] transition cursor-pointer">
-              <img src={img} alt={`nail ${i}`} className="w-full h-full object-cover" />
-            </div>
-          ))}
-        </div>
-      </section>
+{zoom && <div onClick={()=>setZoom(null)} className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6"><img src={zoom} className="max-h-full rounded-2xl" alt="" /></div>}
+{thanks && <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6"><div className="bg-white rounded-3xl p-8 max-w-sm text-center"><div className="text-4xl">💅✨</div><h4 className="text-2xl font-bold mt-3 text-black">Thank You, Gorgeous!</h4><p className="text-sm text-zinc-600 mt-3">Your request received! Redirecting to WhatsApp (407) 393-7261 to confirm your luxury moment!</p><button onClick={()=>setThanks(false)} className="mt-5 bg-black text-white px-6 py-2 rounded-full text-xs">Close</button></div></div>}
 
-      {/* REVIEWS */}
-      <section className="px-6 md:px-12 py-16 max-w-7xl mx-auto">
-        <h3 className="text-2xl font-bold">What My Clients Say</h3>
-        <div className="grid md:grid-cols-3 gap-4 mt-8">
-          {[
-            { name: "Sarah B.", text: "Angel understood exactly what I wanted! Clean, professional, and beautiful!", stars: 5 },
-            { name: "Jessica L.", text: "Best nails in Orlando! Angel is so talented!", stars: 5 },
-            { name: "Maria G.", text: "My nails lasted 4 weeks perfect! So happy!", stars: 5 },
-          ].map((r, i) => (
-            <div key={i} className="bg-white p-6 rounded-2xl border shadow-sm">
-              <p className="text-pink-500 text-sm">{"★".repeat(r.stars)}</p>
-              <p className="mt-3 text-sm text-zinc-700 italic">"{r.text}"</p>
-              <p className="mt-4 font-bold text-xs">- {r.name}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* BOOKING - KENBE MENM SA + WHATSAPP */}
-      <section id="book" className="bg-black text-white py-20 px-6">
-        <div className="max-w-md mx-auto text-center">
-          <h3 className="text-3xl md:text-4xl font-black">Book Your Luxury Moment</h3>
-          <p className="text-zinc-400 text-xs mt-3 tracking-widest">ORLANDO, FLORIDA • (407) 393-7261</p>
-
-          <div className="bg-white rounded-[24px] p-6 mt-10 space-y-4">
-            <input
-              value={name}
-              onChange={(e)=>setName(e.target.value)}
-              placeholder="Your Name"
-              className="w-full p-4 rounded-full bg-zinc-100 text-black outline-none text-sm"
-            />
-            <input
-              value={phone}
-              onChange={(e)=>setPhone(e.target.value)}
-              placeholder="Phone Number"
-              className="w-full p-4 rounded-full bg-zinc-100 text-black outline-none text-sm"
-            />
-            <button
-              onClick={handleBooking}
-              className="w-full bg-black text-white font-black py-4 rounded-full hover:bg-zinc-800 transition"
-            >
-              CONFIRM BOOKING
-            </button>
-            <p className="text-[10px] text-zinc-400">Will open WhatsApp to (407) 393-7261</p>
-          </div>
-
-          <p className="mt-10 text-xs text-zinc-500">ANGEL NAILS • ORLANDO, FLORIDA</p>
-        </div>
-      </section>
-    </main>
-  );
+<style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}`}</style>
+</main>
+)
 }
