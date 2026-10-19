@@ -1,46 +1,53 @@
+"use client";
+import { useState } from "react";
+const IG_LINK = "https://www.instagram.com/lakaybrand.00";
+const TIKTOK_LINK = "https://www.tiktok.com/@lakay.00";
+const WA_LINK = "https://wa.me/15083692956";
+const products = [
+  { id: 1, name: "PRODUCT ONE", price: 55, front: "/images/P1_FRONT.jpg", back: "/images/P1_BACK.jpg" },
+  { id: 2, name: "PRODUCT TWO", price: 55, front: "/images/P2_FRONT.jpg", back: "/images/P2_BACK.jpg" },
+  { id: 3, name: "PRODUCT THREE", price: 70, front: "/images/P3_FRONT.jpg", back: "/images/P3_BACK.jpg" },
+  { id: 4, name: "PRODUCT FOUR", price: 55, front: "/images/P4_FRONT.jpg", back: "/images/P4_BACK.jpg" },
+  { id: 5, name: "PRODUCT FIVE", price: 55, front: "/images/P5_FRONT.jpg", back: "/images/P5_BACK.jpg" },
+  { id: 6, name: "PRODUCT SIX", price: 55, front: "/images/P6_FRONT.jpg", back: "/images/P6_BACK.jpg" },
+  { id: 7, name: "PRODUCT SEVEN", price: 55, front: "/images/P7_FRONT.jpg", back: "/images/P7_BACK.jpg" },
+  { id: 8, name: "PRODUCT EIGHT", price: 55, front: "/images/P8_FRONT.jpg", back: "/images/P8_BACK.jpg" },
+  { id: 9, name: "PRODUCT NINE", price: 55, front: "/images/P9_FRONT.jpg", back: "/images/P9_BACK.jpg" },
+  { id: 10, name: "PRODUCT TEN", price: 55, front: "/images/P10_FRONT.jpg", back: "/images/P10_BACK.jpg" },
+];
+function ProductCard({ p, size, setSize, order }: any){
+  const [showBack, setShowBack] = useState(false);
+  return(
+    <div className="bg-[#141414] border border-[#222] rounded-[22px] overflow-hidden">
+      <div className="relative aspect-[4/5] bg-[#0e0e0e] cursor-pointer select-none" onClick={()=>setShowBack(!showBack)}>
+        <img src={p.front} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${showBack ? "opacity-0" : "opacity-100"}`} />
+        <img src={p.back} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${showBack ? "opacity-100" : "opacity-0"}`} />
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5"><div className={`w-1.5 h-1.5 rounded-full ${!showBack ? "bg-white" : "bg-white/30"}`}></div><div className={`w-1.5 h-1.5 rounded-full ${showBack ? "bg-white" : "bg-white/30"}`}></div></div>
+        <div className="absolute top-3 right-3 bg-black/60 px-2 py-1 rounded-full text-[9px] font-bold">{showBack ? "BACK" : "FRONT"}</div>
+      </div>
+      <div className="p-4"><h3 className="text-[11px] font-bold tracking-widest">{p.name} - ${p.price}</h3><div className="flex gap-1 mt-3">{["S","M","L","XL","XXL"].map((s)=><button key={s} onClick={()=>setSize(p.id, s)} className={`border px-3 py-1 rounded-full text-[10px] font-bold ${size===s ? "bg-white text-black" : "border-[#333]"}`}>{s}</button>)}</div><button onClick={()=>order(p)} className={`mt-3 w-full py-3 rounded-full font-black text-[11px] tracking-widest ${p.price===70 ? "bg-[#ff1a1a] text-white" : "bg-[#f5e6d3] text-black"}`}>PREORDER - ${p.price}</button></div>
+    </div>
+  );
+}
 export default function Page(){
-return(
-<div style={{minHeight:"100vh",background:"#0a0a0a",display:"flex",flexDirection:"column",fontFamily:"Inter, sans-serif"}}>
-
-<div style={{background:"#f5e8d3",color:"#000",textAlign:"center",padding:"10px",fontWeight:"600",letterSpacing:"5px",fontSize:"12px"}}>LAKAY ACTIVE</div>
-
-<div style={{
-flex:1,
-background:"#0a0a0a",
-display:"flex",
-flexDirection:"column",
-alignItems:"center",
-padding:"60px 24px 30px",
-textAlign:"left",
-backgroundImage:`linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.95)), url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600')`,
-backgroundSize:"cover",
-backgroundPosition:"center"
-}}>
-
-<div style={{width:"100%",maxWidth:"340px"}}>
-<h1 style={{fontSize:"74px",fontWeight:"900",lineHeight:"0.85",color:"#f5e8d3",letterSpacing:"-1px",margin:0}}>
-L<span style={{fontWeight:"300"}}>Λ</span>K<span style={{fontWeight:"300"}}>Λ</span>Y<br/>ACTIVE
-</h1>
-
-<p style={{marginTop:"18px",color:"#f5e8d3",fontWeight:"800",fontSize:"15px",lineHeight:"1.2",letterSpacing:"0.3px"}}>NEW ACTIVEWEAR COLLECTION<br/>DROPPING SOON</p>
-
-<p style={{marginTop:"22px",color:"#f5e8d3",fontSize:"13px",opacity:0.85,lineHeight:"1.4"}}>Premium activewear crafted for strength •<br/>movement • everyday</p>
-
-<div style={{marginTop:"32px",display:"flex",flexDirection:"column",gap:"18px"}}>
-<a href="https://wa.me/15083692956" style={{background:"#f5e8d3",color:"#000",padding:"16px 20px",borderRadius:"14px",display:"flex",alignItems:"center",gap:"12px",textDecoration:"none",fontWeight:"600",fontSize:"17px",justifyContent:"flex-start"}}>
-<span style={{fontSize:"32px"}}>💬</span> Join on WhatsApp
-</a>
-<a href="https://www.instagram.com/lakaybrand.00" style={{background:"#f5e8d3",color:"#000",padding:"16px 20px",borderRadius:"14px",display:"flex",alignItems:"center",gap:"12px",textDecoration:"none",fontWeight:"600",fontSize:"17px",justifyContent:"flex-start"}}>
-<span style={{fontSize:"28px"}}>📷</span> Follow on Instagram
-</a>
-</div>
-
-<p style={{marginTop:"30px",textAlign:"center",color:"#f5e8d3",fontSize:"12px",opacity:0.8}}>Launching February 2027</p>
-</div>
-
-<p style={{marginTop:"auto",paddingTop:"60px",textAlign:"center",fontSize:"7.5px",letterSpacing:"1.5px",opacity:0.35,color:"#f5e8d3"}}>© 2024 LAKAY ACTIVE • EST. 2024 • MADE FOR ATHLETES</p>
-
-</div>
-</div>
-)
+  const [sizes,setSizes]=useState<any>({});
+  const setSize = (id:any, s:string) => setSizes((prev:any)=>({...prev, [id]:s}));
+  const order=(p:any)=>{ const size=sizes[p.id]||"M"; const msg=`Hi LAKAY ACTIVE! 👋\n\nI want to preorder:\n• ${p.name}\n• Price: $${p.price}\n• Size: ${size}\n\nPlease confirm availability. Thank you!`; window.open(WA_LINK+"?text="+encodeURIComponent(msg),"_blank"); };
+  return(
+    <div className="min-h-screen bg-[#090909] text-white">
+      <div className="sticky top-0 z-50 bg-[#090909]/95 backdrop-blur border-b border-[#1a1a1a]">
+        <div className="max-w-[1350px] mx-auto flex flex-col items-center justify-center px-6 py-8">
+          <h1 className="text-[52px] md:text-[68px] font-black tracking-[12px] leading-none">LΛKΛY</h1>
+          <p className="tracking-[10px] text-[#f5e6d3] font-black text-[11px] mt-2">WEAR YOUR ROOTS</p>
+          <div className="flex items-center gap-2 mt-5">
+            <a href={IG_LINK} target="_blank" className="px-5 h-9 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center text-[10px] font-bold tracking-widest">IG: @lakaybrand.00</a>
+            <a href={TIKTOK_LINK} target="_blank" className="px-5 h-9 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center text-[10px] font-bold tracking-widest">TT: @lakay.00</a>
+            <a href={WA_LINK} target="_blank" className="px-5 h-9 rounded-full bg-[#f5e6d3] text-black flex items-center justify-center font-black text-[10px] tracking-widest">WHATSAPP</a>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-[1350px] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">{products.map(p=><ProductCard key={p.id} p={p} size={sizes[p.id]} setSize={setSize} order={order} />)}</div>
+      <div className="border-t border-[#1a1a1a] mt-10 py-10 text-center"><p className="text-[10px] opacity-30 tracking-widest">© 2024 LAKAY ACTIVE • IG @lakaybrand.00 • TT @lakay.00</p></div>
+    </div>
+  );
 }
